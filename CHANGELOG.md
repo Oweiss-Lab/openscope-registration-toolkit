@@ -7,3 +7,17 @@ drift study. Flat package layout (`openscope_registration.{data, rigid, matching
 psame, rescue, diagnostics, freeze, plotting, review_html, manifests, pipeline,
 cli, io}`), one `osreg` command with five subcommands, 36 synthetic-ground-truth
 tests including an end-to-end five-stage run on local `.npz` sessions.
+
+Reproduction against the original OpenScope pilot (animal 846289, planes
+VISp_0 and VISl_5, 8 sessions, identical parameters): rigid transforms, NCC,
+inverse-consistency residuals, candidate pair sets, IoU/centroid values, and
+candidate-track coverage are identical (atol 1e-6 / exact). Stages 3b-5 on
+VISp_0 (`refine` with the new transforms, `freeze` with the study's actual
+reviewer decisions) reproduce the frozen study run bit-for-bit: 2,196 scored
+pairs with identical IoU, mask correlation, raw and calibrated P_same,
+calibration bins and summary counts; 159 accepted tracks / 1,113 track-days
+with an identical pair set. One intentional
+difference: the per-tile residual-shift diagnostic now uses the same
+subpixel phase-correlation estimator as the global registration; the pilot's
+tile residuals were quantized to whole pixels. `tests/test_pilot_reproduction.py`
+re-runs this comparison when `OSREG_PILOT_ROOT` / `OSREG_NEW_ROOT` are set.

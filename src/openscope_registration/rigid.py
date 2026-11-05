@@ -1,9 +1,9 @@
-"""Rigid cross-session image registration actions (source-agnostic).
+"""Rigid image registration primitives.
 
-Ports the validated OpenScope RF Koopman pilot implementation into the
-reusable layer: robust projection preprocessing, Hann-windowed bounded
-phase correlation with parabolic subpixel refinement, rotation grid search
-scored by masked NCC, and residual tile shifts as the local-failure probe.
+Projection preprocessing (percentile scaling, Gaussian high-pass, light
+smoothing, z-score), Hann-windowed phase correlation with a bounded search and
+parabolic subpixel refinement, rotation grid search scored by masked NCC on the
+overlap support, image/mask warping, and per-tile residual shifts.
 """
 
 from __future__ import annotations
