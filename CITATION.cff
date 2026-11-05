@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "openscope-registration-toolkit: cross-session cell registration for calcium imaging"
+type: software
+version: 0.1.0
+date-released: 2026-11-05
+authors:
+  - family-names: Rodriguez
+    given-names: Nicholas
+    email: statius9@ufl.edu
+    affiliation: "Oweiss Lab, University of Florida"
+repository-code: "https://github.com/Oweiss-Lab/openscope-registration-toolkit"
+license: MIT

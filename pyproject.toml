@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openscope-registration-toolkit"
+version = "0.1.0"
+description = "Cross-session cell registration for two-photon calcium imaging: rigid alignment, one-to-one pixel-mask matching, calibrated same-cell probability, a diagnostic battery with nulls, a manual-review GUI, and frozen cell manifests."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [{ name = "Nicholas Rodriguez", email = "statius9@ufl.edu" }]
+keywords = ["calcium imaging", "two-photon", "cell registration", "longitudinal", "OpenScope", "neuroscience"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "matplotlib>=3.7",
+    "Pillow>=9.0",
+]
+
+[project.optional-dependencies]
+openscope = ["s3fs>=2023.1", "zarr>=2.14,<3"]
+dev = ["pytest>=7", "ruff>=0.4"]
+
+[project.urls]
+Homepage = "https://github.com/Oweiss-Lab/openscope-registration-toolkit"
+Issues = "https://github.com/Oweiss-Lab/openscope-registration-toolkit/issues"
+
+[project.scripts]
+osreg = "openscope_registration.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 140
+target-version = "py39"
