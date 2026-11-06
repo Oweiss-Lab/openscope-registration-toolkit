@@ -116,16 +116,6 @@ $$
 p_\text{raw} = \Pr\!\left(\text{same} \mid \rho_\text{mask},\ \log(1 + d_\text{cent})\right), \qquad P_\text{same} = g_\text{iso}(p_\text{raw})
 $$
 
-![Mixture-fit feature plane, one panel per animal](docs/images/p_same_feature_scatter_by_animal.png)
-
-*The two features the mixture is fit on, one panel per animal (planes pooled;
-124,928 pairs). Each dot is one assigned cross-day pair, coloured by
-$p_\text{raw}$; the fitted mixture is overlaid per plane: 2σ ellipses and ×
-at the means of the same-cell (blue) and different-cell (red) components, and
-the dotted $p_\text{raw}=0.5$ decision contour, mapped from the fit space into
-the unlogged display axes. The same two-cluster geometry appears in every
-animal. Figure: [`plotting.plot_p_same_feature_scatter_grid`](src/openscope_registration/plotting.py#L467), [`plotting.overlay_mixture_fit`](src/openscope_registration/plotting.py#L399).*
-
 The mixture ranks pairs correctly, but its numerical values do not match how
 often pairs are actually the same cell, so they are rescaled against an
 independent check: **adjacent-day transitive consistency**. If reference cell
@@ -139,19 +129,14 @@ even-indexed sessions and checked on odd-indexed ones
 ([`psame.fit_isotonic_calibration`](src/openscope_registration/psame.py#L108),
 [`psame.apply_isotonic`](src/openscope_registration/psame.py#L138)). A
 $P_\text{same}$ of 0.9 therefore means about 90 % of pairs with that score are
-confirmed by a direct match between adjacent days.
-
-![Isotonic reliability diagram](docs/images/isotonic_reliability_diagram.png)
-
-*Calibration on the held-out sessions, pooled over 80 plane-runs. Top:
-observed consistency fraction vs $p_\text{raw}$ in equal-count bins, for the
-sessions the map was fit on (blue) and the held-out sessions (orange), with the
-identity line and the fitted isotonic maps (green, thin per plane, bold
-median). Bottom: pairs per bin. The raw posterior is conservative below ~0.9
-and the correction generalizes: held-out points sit on the fitted curve.
-Consistency is necessary, not sufficient: a stable wrong match passes every
-triangle, so calibrated values at low scores bound rather than measure the
-true same-cell probability. Figure: [`plotting.plot_reliability_diagram`](src/openscope_registration/plotting.py#L598).*
+confirmed by a direct match between adjacent days. Consistency is necessary,
+not sufficient: a stable wrong match passes every triangle, so calibrated
+values at low scores bound rather than measure the true same-cell
+probability. `osreg refine` writes the feature-plane scatter with the fitted
+mixture overlaid ([`plotting.plot_p_same_feature_scatter_grid`](src/openscope_registration/plotting.py#L467))
+and the fit/held-out reliability diagram
+([`plotting.plot_reliability_diagram`](src/openscope_registration/plotting.py#L598))
+to its figure directory.
 
 Step 3 also runs a rescue pass for cells the soma segmentation missed on some
 days ([`rescue.py`](src/openscope_registration/rescue.py)) and writes every
