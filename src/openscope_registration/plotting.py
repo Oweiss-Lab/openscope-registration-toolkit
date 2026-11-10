@@ -207,7 +207,10 @@ def plot_footprint_size_change(size_changes: pd.DataFrame, session_order: list[s
     fig, ax = plt.subplots(figsize=(12, 5.5))
     values = [size_changes.loc[size_changes["session_id"].eq(s), "diameter_ratio_moving_over_reference"].dropna().to_numpy() for s in session_order]
     labels = _display_labels(session_order)
-    ax.boxplot(values, labels=[f"{lab}\n(n={len(v)})" for lab, v in zip(labels, values)], showfliers=False)
+    # `labels=` was removed from Axes.boxplot in matplotlib 3.11; set tick labels explicitly.
+    ax.boxplot(values, showfliers=False)
+    ax.set_xticks(range(1, len(values) + 1))
+    ax.set_xticklabels([f"{lab}\n(n={len(v)})" for lab, v in zip(labels, values)])
     rng = np.random.default_rng(0)
     for k, v in enumerate(values):
         ax.scatter(np.full(len(v), k + 1) + rng.uniform(-0.15, 0.15, len(v)), v, s=4, color="0.3", alpha=0.4, zorder=3)

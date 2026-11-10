@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Fix `plot_footprint_size_change` on matplotlib >= 3.11, where `Axes.boxplot(labels=...)` was removed; tick labels are now set explicitly. This broke three end-to-end tests on CI (matplotlib 3.11.2) while passing locally on 3.9.4.
+- CI: run the Python 3.9 job on `ubuntu-22.04` (3.9 is not available on `ubuntu-latest`/26.04), add 3.13, disable fail-fast.
+
 ## 0.1.0 (2026-11-05)
 
 Initial public release, extracted from the Oweiss Lab OpenScope receptive-field
